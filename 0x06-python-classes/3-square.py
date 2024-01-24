@@ -11,10 +11,3 @@ class Square:
 
     def area(self):
         return self.__size ** 2
-    # Example usage:
-try:
-    square_instance = Square(5)
-    print("Square area:", square_instance.area())
-except (TypeError, ValueError) as e:
-    print(e)
-

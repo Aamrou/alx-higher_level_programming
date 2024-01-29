@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+
 """
 This module contains an algorithm that resolves the N-Queen puzzle
 using backtracking
@@ -84,3 +85,4 @@ if __name__ == '__main__':
         sys.exit(1)
 
     solveNQueen(size)
+

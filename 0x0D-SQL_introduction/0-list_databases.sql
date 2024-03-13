@@ -1,3 +1,4 @@
-sts all databases of my MySQL server.
-SHOW DATABASES;
+-- lists all databases of your MySQL server.
+-- with show command
+SHOW databases;
 

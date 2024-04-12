@@ -13,4 +13,3 @@ r1.print();
 console.log('Rotate:');
 r1.rotate();
 r1.print();
-

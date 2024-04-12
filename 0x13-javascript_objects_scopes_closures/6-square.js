@@ -12,4 +12,3 @@ module.exports = class Square extends Father {
     }
   }
 };
-

@@ -1,27 +1,35 @@
 #!/usr/bin/python3
-'''  prints all City objects from the database hbtn_0e_14_usa:'''
+"""
+    A script that prints all City objects from the database hbtn_0e_6_usa
+    Username, password and dbname wil be passed as arguments to the script.
+"""
+
 
 import sys
-from model_city import City
 from model_state import Base, State
-from sqlalchemy import create_engine
+from model_city import City
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine
 
-if __name__ == "__main__":
-    dbConnector = 'mysql+mysqldb://{}:{}@localhost:3306/{}'
-    engine = create_engine(dbConnector.format(
-        sys.argv[1], sys.argv[2], sys.argv[3]), pool_pre_ping=True)
+
+if __name__ == '__main__':
+    engine = create_engine('mysql+mysqldb://{}:{}@localhost:3306/{}'.format(
+                           sys.argv[1], sys.argv[2], sys.argv[3]),
+                           pool_pre_ping=True)
+
+    Session = sessionmaker(bind=engine)
     Base.metadata.create_all(engine)
-    Base.metadata.bind = engine
-    DBSession = sessionmaker()
-    DBSession.bind = engine
-    session = DBSession()
 
-    # query = session.query(State).join(City).all()
+    # create a session
+    session = Session()
 
-    for state, city in\
-        session.query(State, City).\
-            filter(State.id == City.state_id).order_by(City.id).all():
-        print("{}: ({}) {}".format(state.name, city.id, city.name,))
+    # extract all cities in a state
+    cities = session.query(State, City) \
+                    .filter(State.id == City.state_id)
+
+    # print all states
+
+    for ci in cities:
+        print("{}: ({}) {}".format(ci.State.name, ci.City.id, ci.City.name))
 
     session.close()

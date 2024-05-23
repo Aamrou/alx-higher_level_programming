@@ -1,6 +1,4 @@
-#!/usr/bin/node
-
-const request = require('request');
+t request = require('request');
 const url = 'https://swapi-api.hbtn.io/api/films/' + process.argv[2];
 
 function helpRequest (arr, i) {
@@ -23,4 +21,3 @@ request(url, function (error, response, body) {
   const charac = JSON.parse(body).characters;
   helpRequest(charac, 0);
 });
-

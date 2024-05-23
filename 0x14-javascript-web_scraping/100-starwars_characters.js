@@ -1,17 +1,17 @@
 t request = require('request');
-const id = process.argv[2];
-const url = 'https://swapi-api.hbtn.io/api/films/';
 
-request(url + id, function (error, response, body) {
-  if (error) {
-    console.log(error);
+function callback (error, response, body) {
+  if (!error && response.statusCode === 200) {
+    const characters = JSON.parse(body).characters;
+    for (const character of characters) {
+      // console.log(character);
+      request(character, function (error, response, body) {
+        if (!error && response.statusCode === 200) {
+          const info = JSON.parse(body);
+          console.log(info.name);
+        }
+      });
+    }
   }
-  JSON.parse(body).characters.forEach(function (url, callback) {
-    request(url, function (error, response, body) {
-      if (error) {
-        console.error(error);
-      }
-      console.log(JSON.parse(body).name);
-    });
-  });
-});
+}
+request('https://swapi-api.hbtn.io/api/films/' + process.argv[2], callback);
